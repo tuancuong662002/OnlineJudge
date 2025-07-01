@@ -1,18 +1,10 @@
 import { createApp } from 'vue'
-import './style.css'
 import App from './App.vue'
+import router from './router'
+import 'bootstrap/dist/css/bootstrap.min.css'
+import './style.css'
 
-import Problems from './views/Problems.vue'
 
-const routes = [
-    { path: '/', component: Problems }
-]
-
-const router = createRouter({
-    history: createWebHistory(),
-    routes
-})
-
-const app = createApp(App)
-app.use(router)
-app.mount('#app')
+createApp(App)
+    .use(router)
+    .mount('#app')
