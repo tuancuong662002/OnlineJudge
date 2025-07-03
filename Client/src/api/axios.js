@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const instance = axios.create({
-    baseURL: 'http://localhost:8000/api', // đổi thành API của bạn
+    baseURL: 'http://localhost:9090/api', // đổi thành API của bạn
     timeout: 5000,
     headers: {
         'Content-Type': 'application/json',

@@ -263,7 +263,7 @@ const changeLanguage = () => {
 //submit code
 const handleSubmit = async () => {
     const sourceCode = editorInstance.getValue()
-
+    console.log('Source Code:', sourceCode)   
     const payload = {
         language: language.value,
         sourceCode: sourceCode,
