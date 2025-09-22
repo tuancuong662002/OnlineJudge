@@ -57,7 +57,8 @@
                         </svg>
                         Run
                     </button>
-                    <button @click="handleSubmit"   class="bg-green-600 text-white px-4 py-1 rounded hover:bg-green-700 font-medium">
+                    <button @click="handleSubmit"
+                        class="bg-green-600 text-white px-4 py-1 rounded hover:bg-green-700 font-medium">
                         <svg class="w-4 h-4 inline mr-1" fill="currentColor" viewBox="0 0 20 20">
                             <path fill-rule="evenodd"
                                 d="M16.707 10.293a1 1 0 010 1.414l-6 6a1 1 0 01-1.414 0L3.293 11.707a1 1 0 011.414-1.414L10 15.586l5.293-5.293a1 1 0 011.414 0z"
@@ -181,12 +182,12 @@
                 <!-- Language Selector -->
                 <div class="flex items-center justify-between px-4 py-2 bg-gray-800 border-b border-gray-700">
                     <div class="flex items-center space-x-4">
-                        <select v-model="language" @change="changeLanguage"
+                        <select v-model.number="language" @change="changeLanguage"
                             class="bg-gray-700 text-white px-3 py-1 rounded border border-gray-600 focus:outline-none focus:border-blue-500">
-                            <option value="cpp">C++</option>
-                            <option value="java">Java</option>
-                            <option value="python">Python</option>
-                            <option value="javascript">JavaScript</option>
+                            <option value="105">C++</option>
+                            <option value="62">Java</option>
+                            <option value="92">Python</option>
+                            <option value="102">JavaScript</option>
                         </select>
                         <div class="flex items-center space-x-2">
                             <svg class="w-4 h-4 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
@@ -248,7 +249,7 @@ import { ref } from 'vue'
 import * as monaco from 'monaco-editor'
 import { onMounted } from 'vue'
 import { problemSolver } from '../api/problemSolver.js'
-const language = ref('cpp')
+const language = ref('105')
 let editorInstance = null
 
 
@@ -265,12 +266,13 @@ const handleSubmit = async () => {
     const sourceCode = editorInstance.getValue()
     console.log('Source Code:', sourceCode)   
     const payload = {
-        language: language.value,
+        languageId : language.value,
         sourceCode: sourceCode,
         input: '' // nếu bạn có input từ người dùng
     }
     try {
         const response = await problemSolver(payload)
+        console.log("?>>>>language", typeof language.value)
         alert('Kết quả từ server: ' + response.data.result)
     } catch (error) {
         console.error('Lỗi khi submit:', error)
@@ -280,7 +282,7 @@ const handleSubmit = async () => {
 onMounted(() => {
     editorInstance = monaco.editor.create(document.getElementById('editor'), {
         value: '// Bắt đầu viết code ở đây',
-        language: language.value,
+        language: parseInt(language.value) ,
         theme: 'vs-dark',
         automaticLayout: true
     })

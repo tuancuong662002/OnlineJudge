@@ -2,6 +2,7 @@ package org.example.backend.controller.judge;
 
 
 import org.example.backend.dto.Judge0Request;
+import org.example.backend.dto.SubmissionDTO;
 import org.example.backend.entity.Submission;
 import org.example.backend.service.Judge0Service;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,15 +14,17 @@ public class judgeController {
      @Autowired
      Judge0Service  judge0Service;
      @PostMapping
-     public String handleJudgeCode(@RequestBody Submission submission){
+     public String handleJudgeCode(@RequestBody SubmissionDTO submission){
           System.out.println(">>> source  code : "  + submission.getSourceCode() );
-          String rs = judge0Service.submitCode( "console.log('hello')" , "hello" ) ;
-          System.out.println(">>> source  code : "  + rs );
-          return  rs ;
+          int language_id   =  submission.getLanguageId() ;
+          String source_code =  submission.getSourceCode();
+          String token = judge0Service.submitCode(language_id ,  source_code , "1 2" ) ;
+          String result = judge0Service.getSubmissResult(token) ;
+          System.out.println(">>> source  code : "  + result );
+          return  result ;
      }
      @GetMapping
      public String index(){
-
           return  "hello" ;
      }
 
